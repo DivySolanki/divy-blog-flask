@@ -1,20 +1,19 @@
-import validator as validator
-from flask import Flask, render_template, redirect, url_for, flash, request
+from functools import wraps
+
+from flask import Flask, render_template, redirect, url_for, flash
+from flask import abort
 from flask_bootstrap import Bootstrap
 from flask_ckeditor import CKEditor
-from datetime import date
-from flask_wtf import FlaskForm
-from werkzeug.security import generate_password_hash, check_password_hash
-from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy.orm import relationship
+from flask_gravatar import Gravatar
 from flask_login import UserMixin, login_user, LoginManager, login_required, current_user, logout_user
+from flask_sqlalchemy import SQLAlchemy
+from flask_wtf import FlaskForm
+from sqlalchemy.orm import relationship
+from werkzeug.security import generate_password_hash, check_password_hash
 from wtforms import StringField, PasswordField, SubmitField
 from wtforms.validators import DataRequired
-from forms import CreatePostForm, CommentForm
-from flask_gravatar import Gravatar
-from functools import wraps
-from flask import abort
 
+from forms import CreatePostForm, CommentForm
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '8BYkEfBA6O6donzWlSihBXox7C0sKR6b'
