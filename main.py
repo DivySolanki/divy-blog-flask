@@ -1,6 +1,6 @@
 from datetime import date
 from functools import wraps
-from flask import Flask, render_template, redirect, url_for, flash, request
+from flask import Flask, render_template, redirect, url_for, flash, request, send_from_directory
 from flask import abort
 from flask_bootstrap import Bootstrap
 from flask_ckeditor import CKEditor
@@ -85,6 +85,11 @@ def admin_only(f):
             return abort(403)
         return f(*args, **kwargs)
     return decorated_function
+
+@app.route('/favicon.ico')
+def favicon():
+    return send_from_directory(os.path.join(app.root_path, 'static', 'images'),
+                               'favicon.ico', mimetype='image/vnd.microsoft.icon')
 
 @app.route('/')
 def get_all_posts():
